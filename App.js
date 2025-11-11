@@ -1,20 +1,42 @@
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+// Import screens
+import HomeScreen from './screens/HomeScreen';
+import PreTaskScreen from './screens/PreTaskScreen';
+import PhotoUploadScreen from './screens/PhotoUploadScreen';
+import RiskAssessmentScreen from './screens/RiskAssessmentScreen';
+import RiskDetailScreen from './screens/RiskDetailScreen';
+import RiskMatrixScreen from './screens/RiskMatrixScreen';
+import SummaryScreen from './screens/SummaryScreen';
+import CongratulationsScreen from './screens/CongratulationsScreen';
+import RiskReassessmentScreen from './screens/RiskReassessmentScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StatusBar style="light" />
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+          cardStyle: { backgroundColor: '#003D5C' },
+        }}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="PreTask" component={PreTaskScreen} />
+        <Stack.Screen name="PhotoUpload" component={PhotoUploadScreen} />
+        <Stack.Screen name="RiskAssessment" component={RiskAssessmentScreen} />
+        <Stack.Screen name="RiskDetail" component={RiskDetailScreen} />
+        <Stack.Screen name="RiskMatrix" component={RiskMatrixScreen} />
+        <Stack.Screen name="Summary" component={SummaryScreen} />
+        <Stack.Screen name="Congratulations" component={CongratulationsScreen} />
+        <Stack.Screen name="RiskReassessment" component={RiskReassessmentScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
