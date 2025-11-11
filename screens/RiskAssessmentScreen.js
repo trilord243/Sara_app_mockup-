@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
   riskRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
   },
   checkbox: {
     width: 22,
@@ -194,7 +193,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     padding: 20,
-    gap: 15,
     marginBottom: 20,
   },
   backButton: {

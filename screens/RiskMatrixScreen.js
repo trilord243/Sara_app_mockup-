@@ -236,7 +236,6 @@ const styles = StyleSheet.create({
   optionsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: 8,
   },
   optionButton: {
     flex: 1,
@@ -342,7 +341,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    gap: 15,
     marginBottom: 40,
   },
   backButton: {

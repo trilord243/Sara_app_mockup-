@@ -253,7 +253,6 @@ const styles = StyleSheet.create({
   addressContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
   },
   gpsButton: {
     backgroundColor: colors.secondary,

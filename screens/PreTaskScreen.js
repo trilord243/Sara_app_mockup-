@@ -262,12 +262,10 @@ const styles = StyleSheet.create({
   },
   answersRow: {
     flexDirection: 'row',
-    gap: 20,
   },
   radioButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
   },
   radioCircle: {
     width: 20,
@@ -293,7 +291,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 30,
     marginBottom: 40,
-    gap: 15,
   },
   backButton: {
     flex: 1,
@@ -346,7 +343,6 @@ const styles = StyleSheet.create({
   },
   modalButtons: {
     flexDirection: 'row',
-    gap: 15,
   },
   modalBackButton: {
     flex: 1,

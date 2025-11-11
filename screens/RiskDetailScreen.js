@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    gap: 15,
     marginBottom: 40,
   },
   backButton: {

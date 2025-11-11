@@ -165,7 +165,6 @@ const styles = StyleSheet.create({
   },
   actionButtons: {
     flexDirection: 'row',
-    gap: 15,
     width: '100%',
     maxWidth: 400,
   },

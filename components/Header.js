@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
   },
   leftSection: {
     flexDirection: 'row',
-    gap: 15,
   },
   rightSection: {
     flexDirection: 'row',
@@ -50,6 +49,7 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: 15,
   },
   iconText: {
     color: colors.white,

@@ -249,7 +249,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    gap: 15,
     marginBottom: 25,
   },
   saveButton: {
@@ -282,7 +281,6 @@ const styles = StyleSheet.create({
   },
   navigationButtons: {
     flexDirection: 'row',
-    gap: 15,
     marginBottom: 40,
   },
   backButton: {
