@@ -30,12 +30,20 @@ export default function RiskReassessmentScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Header
-        onHelpPress={() => alert('Help')}
-        onExitPress={() => alert('Exit')}
+        onHelpPress={() => alert('Ayuda')}
+        onExitPress={() => alert('Salir')}
       />
 
       <View style={styles.header}>
-        <Text style={styles.title}>Risk-Reassessment</Text>
+        <Text style={styles.title}>Reevaluación de Riesgos</Text>
+      </View>
+
+      <View style={styles.instructionBox}>
+        <Text style={styles.instructionTitle}>🔄 Instrucciones</Text>
+        <Text style={styles.instructionText}>
+          Implemente medidas de control para reducir los riesgos identificados.
+          Describa las acciones tomadas y luego reevalúe cada riesgo.
+        </Text>
       </View>
 
       <ScrollView style={styles.content}>
@@ -59,7 +67,7 @@ export default function RiskReassessmentScreen({ navigation }) {
 
             <TextInput
               style={styles.descriptionInput}
-              placeholder="Descripción acerca de que medidas tomate para disminuir el riesgo."
+              placeholder="Describa las medidas tomadas para disminuir el riesgo..."
               placeholderTextColor="#999"
               value={risk.description}
               onChangeText={(text) => {
@@ -79,7 +87,7 @@ export default function RiskReassessmentScreen({ navigation }) {
         ))}
 
         <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-          <Text style={styles.nextButtonText}>Next</Text>
+          <Text style={styles.nextButtonText}>Siguiente →</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -87,10 +95,10 @@ export default function RiskReassessmentScreen({ navigation }) {
 }
 
 const getRiskLabel = (value) => {
-  if (value === 16) return 'Black';
-  if (value >= 8) return 'Red';
-  if (value >= 3) return 'Yellow';
-  return 'Green';
+  if (value === 16) return 'Negro';
+  if (value >= 8) return 'Rojo';
+  if (value >= 3) return 'Amarillo';
+  return 'Verde';
 };
 
 const styles = StyleSheet.create({
@@ -107,6 +115,26 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.white,
     textAlign: 'center',
+  },
+  instructionBox: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    marginHorizontal: 20,
+    marginBottom: 10,
+    padding: 15,
+    borderRadius: 10,
+    borderLeftWidth: 4,
+    borderLeftColor: colors.secondary,
+  },
+  instructionTitle: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  instructionText: {
+    color: colors.white,
+    fontSize: 13,
+    lineHeight: 20,
   },
   content: {
     flex: 1,

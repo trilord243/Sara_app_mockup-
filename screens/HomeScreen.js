@@ -9,6 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { colors } from '../theme/colors';
+import { spacing, instructionBoxStyles, inputStyles, buttonStyles, containerStyles } from '../theme/spacing';
 import Header from '../components/Header';
 import { countries, languages, userInfo, jobInfo } from '../data/fakeData';
 
@@ -38,7 +39,7 @@ export default function HomeScreen({ navigation }) {
         onExitPress={() => alert('Salir')}
       />
 
-      <ScrollView style={styles.content}>
+      <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
         <View style={styles.logoContainer}>
           <Text style={styles.logo}>S.A.R.A.</Text>
           <Text style={styles.subtitle}>Evaluación Automatizada de Riesgos de Servicio</Text>
@@ -202,9 +203,12 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
+  scrollContent: {
+    paddingBottom: spacing.largeMargin,
+  },
   logoContainer: {
     alignItems: 'center',
-    paddingVertical: 30,
+    paddingVertical: spacing.largeMargin,
   },
   logo: {
     fontSize: 48,
@@ -215,22 +219,19 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 12,
     color: colors.white,
-    marginTop: 5,
+    marginTop: spacing.smallMargin,
     letterSpacing: 1,
+    lineHeight: 18,
   },
   instructionBox: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    margin: 20,
-    padding: 15,
-    borderRadius: 10,
-    borderLeftWidth: 4,
+    ...instructionBoxStyles,
     borderLeftColor: colors.secondary,
   },
   instructionTitle: {
     color: colors.white,
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: spacing.smallMargin,
   },
   instructionText: {
     color: colors.white,
@@ -238,31 +239,33 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   form: {
-    padding: 20,
+    paddingHorizontal: spacing.containerPadding,
+    paddingTop: spacing.sectionPadding,
   },
   label: {
     color: colors.white,
     fontSize: 14,
-    marginBottom: 8,
-    marginTop: 15,
+    marginBottom: spacing.labelMargin,
+    marginTop: spacing.elementMargin,
   },
   input: {
+    ...inputStyles,
     backgroundColor: colors.white,
-    borderRadius: 5,
-    padding: 12,
-    fontSize: 14,
     color: colors.textDark,
+    marginBottom: spacing.formFieldMargin,
   },
   dropdown: {
     backgroundColor: colors.white,
-    borderRadius: 5,
-    padding: 12,
+    borderRadius: spacing.inputBorderRadius,
+    paddingHorizontal: spacing.elementMargin,
+    height: spacing.inputHeight,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: spacing.formFieldMargin,
   },
   dropdownText: {
-    fontSize: 14,
+    fontSize: 15,
     color: colors.textDark,
   },
   dropdownArrow: {
@@ -271,50 +274,54 @@ const styles = StyleSheet.create({
   },
   dropdownMenu: {
     backgroundColor: colors.white,
-    borderRadius: 5,
-    marginTop: 5,
+    borderRadius: spacing.inputBorderRadius,
+    marginTop: spacing.xs,
+    marginBottom: spacing.formFieldMargin,
     maxHeight: 200,
   },
   dropdownItem: {
-    padding: 12,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.elementMargin,
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
   },
   dropdownItemText: {
-    fontSize: 14,
+    fontSize: 15,
     color: colors.textDark,
   },
   addressContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: spacing.formFieldMargin,
   },
   gpsButton: {
     backgroundColor: colors.secondary,
-    width: 45,
-    height: 45,
-    borderRadius: 22.5,
+    width: spacing.inputHeight,
+    height: spacing.inputHeight,
+    borderRadius: spacing.inputHeight / 2,
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: spacing.smallMargin,
   },
   gpsIcon: {
     fontSize: 20,
   },
   addressInput: {
     flex: 1,
+    marginBottom: 0,
   },
   textArea: {
     height: 100,
     textAlignVertical: 'top',
+    paddingTop: spacing.elementMargin,
   },
   nextButton: {
+    ...buttonStyles,
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: colors.white,
-    borderRadius: 25,
-    padding: 15,
-    alignItems: 'center',
-    marginTop: 30,
-    marginBottom: 40,
+    marginTop: spacing.largeMargin,
+    marginBottom: spacing.xl,
   },
   nextButtonText: {
     color: colors.white,

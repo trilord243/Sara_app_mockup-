@@ -8,6 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import { colors } from '../theme/colors';
+import { spacing, instructionBoxStyles, buttonStyles, inputStyles } from '../theme/spacing';
 import Header from '../components/Header';
 import { riskTypes } from '../data/fakeData';
 
@@ -31,15 +32,23 @@ export default function RiskAssessmentScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Header
-        onHelpPress={() => alert('Help')}
-        onExitPress={() => alert('Exit')}
+        onHelpPress={() => alert('Ayuda')}
+        onExitPress={() => alert('Salir')}
       />
 
       <View style={styles.header}>
-        <Text style={styles.title}>Risk Assessment</Text>
+        <Text style={styles.title}>Evaluación de Riesgos</Text>
+
+        <View style={styles.instructionBox}>
+          <Text style={styles.instructionTitle}>⚠️ Instrucciones</Text>
+          <Text style={styles.instructionText}>
+            Identifique todos los riesgos presentes en el área de trabajo.
+            Marque como N/A los que no apliquen. Toque cada riesgo para ver más detalles.
+          </Text>
+        </View>
       </View>
 
-      <ScrollView style={styles.content}>
+      <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
         {riskTypes.map((risk) => (
           <View key={risk.id}>
             <TouchableOpacity
@@ -74,7 +83,7 @@ export default function RiskAssessmentScreen({ navigation }) {
             {risk.id === 'other' && selectedRisks[risk.id] && (
               <TextInput
                 style={styles.otherInput}
-                placeholder="Open text to describe the risk."
+                placeholder="Describa el riesgo en detalle..."
                 placeholderTextColor="#999"
                 value={otherRiskText}
                 onChangeText={setOtherRiskText}
@@ -89,11 +98,11 @@ export default function RiskAssessmentScreen({ navigation }) {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.buttonText}>Back</Text>
+            <Text style={styles.buttonText}>← Atrás</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-            <Text style={styles.buttonText}>Next</Text>
+            <Text style={styles.buttonText}>Siguiente →</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -107,24 +116,46 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   header: {
-    padding: 20,
-    paddingBottom: 10,
+    paddingHorizontal: spacing.containerPadding,
+    paddingTop: spacing.sectionPadding,
+    paddingBottom: spacing.elementMargin,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: colors.white,
     textAlign: 'center',
+    marginBottom: spacing.xl,
+    lineHeight: 32,
+  },
+  instructionBox: {
+    ...instructionBoxStyles,
+    borderLeftColor: colors.secondary,
+    marginHorizontal: 0,
+  },
+  instructionTitle: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: spacing.smallMargin,
+  },
+  instructionText: {
+    color: colors.white,
+    fontSize: 13,
+    lineHeight: 20,
   },
   content: {
     flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: spacing.largeMargin,
   },
   riskItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 18,
-    paddingHorizontal: 20,
+    paddingVertical: spacing.cardPadding,
+    paddingHorizontal: spacing.containerPadding,
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(255, 255, 255, 0.2)',
   },
@@ -134,14 +165,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   iconCircle: {
-    width: 35,
-    height: 35,
-    borderRadius: 17.5,
+    width: 38,
+    height: 38,
+    borderRadius: 19,
     borderWidth: 2,
     borderColor: colors.white,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 15,
+    marginRight: spacing.elementMargin,
   },
   icon: {
     color: colors.white,
@@ -152,17 +183,19 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 15,
     flex: 1,
+    lineHeight: 22,
   },
   riskRight: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: spacing.sm,
   },
   checkbox: {
-    width: 22,
-    height: 22,
+    width: 24,
+    height: 24,
     borderWidth: 2,
     borderColor: colors.white,
-    borderRadius: 3,
+    borderRadius: spacing.xs,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -173,43 +206,42 @@ const styles = StyleSheet.create({
   },
   naText: {
     color: colors.white,
-    fontSize: 14,
+    fontSize: 15,
+    marginLeft: spacing.xs,
   },
   arrow: {
     color: colors.white,
     fontSize: 28,
     fontWeight: '300',
+    marginLeft: spacing.xs,
   },
   otherInput: {
+    ...inputStyles,
     backgroundColor: colors.white,
-    margin: 20,
-    marginTop: 0,
-    padding: 15,
-    borderRadius: 8,
-    fontSize: 14,
+    marginHorizontal: spacing.containerPadding,
+    marginTop: spacing.smallMargin,
+    marginBottom: spacing.xl,
     minHeight: 80,
     textAlignVertical: 'top',
+    paddingTop: spacing.elementMargin,
   },
   buttonContainer: {
     flexDirection: 'row',
-    padding: 20,
-    marginBottom: 20,
+    gap: spacing.elementMargin,
+    paddingHorizontal: spacing.containerPadding,
+    marginTop: spacing.xl,
   },
   backButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: colors.white,
-    borderRadius: 25,
-    padding: 15,
-    alignItems: 'center',
   },
   nextButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: colors.white,
-    borderRadius: 25,
-    padding: 15,
-    alignItems: 'center',
   },
   buttonText: {
     fontSize: 16,

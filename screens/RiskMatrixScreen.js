@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { colors } from '../theme/colors';
+import { spacing, instructionBoxStyles, buttonStyles } from '../theme/spacing';
 import Header from '../components/Header';
 
 const { width } = Dimensions.get('window');
@@ -18,17 +19,17 @@ export default function RiskMatrixScreen({ navigation, route }) {
   const [selectedSeverity, setSelectedSeverity] = useState(null);
 
   const probabilities = [
-    { id: 1, label: 'Almost\nImpossible' },
-    { id: 2, label: 'Unlikely' },
-    { id: 3, label: 'Possible' },
-    { id: 4, label: 'Likely' },
+    { id: 1, label: 'Casi\nImposible' },
+    { id: 2, label: 'Poco\nProbable' },
+    { id: 3, label: 'Posible' },
+    { id: 4, label: 'Probable' },
   ];
 
   const severities = [
-    { id: 1, label: 'Minor' },
+    { id: 1, label: 'Menor' },
     { id: 2, label: 'Reversible' },
     { id: 3, label: 'Irreversible' },
-    { id: 4, label: 'Catastrophic' },
+    { id: 4, label: 'Catastrófico' },
   ];
 
   // Risk matrix values
@@ -52,10 +53,10 @@ export default function RiskMatrixScreen({ navigation, route }) {
   };
 
   const getRiskLabel = (value) => {
-    if (value === 16) return 'BLACK: Extremely High Risk - Stop Immediately.';
-    if (value >= 8) return 'RED: High Risk - Implement Controls To Lower The Risk Before Proceeding';
-    if (value >= 3) return 'YELLOW: Moderate Risk - Carry Out The Task With Caution';
-    return 'GREEN: Low Risk - Carry Out The Task';
+    if (value === 16) return 'NEGRO: Riesgo Extremadamente Alto - Deténgase Inmediatamente';
+    if (value >= 8) return 'ROJO: Riesgo Alto - Implemente Controles Para Reducir El Riesgo Antes De Proceder';
+    if (value >= 3) return 'AMARILLO: Riesgo Moderado - Realice La Tarea Con Precaución';
+    return 'VERDE: Riesgo Bajo - Realice La Tarea';
   };
 
   const handleNext = () => {
@@ -68,8 +69,8 @@ export default function RiskMatrixScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <Header
-        onHelpPress={() => alert('Help')}
-        onExitPress={() => alert('Exit')}
+        onHelpPress={() => alert('Ayuda')}
+        onExitPress={() => alert('Salir')}
       />
 
       <View style={styles.header}>
@@ -79,14 +80,22 @@ export default function RiskMatrixScreen({ navigation, route }) {
         >
           <Text style={styles.closeButtonText}>✕</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>Risk Assessment</Text>
-        <Text style={styles.subtitle}>{risk?.name || 'Electricity'}</Text>
+        <Text style={styles.title}>Evaluación de Riesgos</Text>
+        <Text style={styles.subtitle}>{risk?.name || 'Electricidad'}</Text>
+
+        <View style={styles.instructionBox}>
+          <Text style={styles.instructionTitle}>📊 Instrucciones</Text>
+          <Text style={styles.instructionText}>
+            Seleccione primero la Severidad (1-4) y luego la Probabilidad (1-4).
+            La matriz calculará automáticamente el nivel de riesgo.
+          </Text>
+        </View>
       </View>
 
-      <ScrollView style={styles.content}>
+      <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
         {/* Probability Selection */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Severity</Text>
+          <Text style={styles.sectionTitle}>Severidad</Text>
           <View style={styles.optionsRow}>
             {severities.map((severity) => (
               <TouchableOpacity
@@ -107,7 +116,7 @@ export default function RiskMatrixScreen({ navigation, route }) {
         {/* Matrix */}
         <View style={styles.matrixContainer}>
           <View style={styles.matrixLabels}>
-            <Text style={styles.matrixAxisLabel}>Probability</Text>
+            <Text style={styles.matrixAxisLabel}>Probabilidad</Text>
             {probabilities.map((prob) => (
               <TouchableOpacity
                 key={prob.id}
@@ -167,7 +176,7 @@ export default function RiskMatrixScreen({ navigation, route }) {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.buttonText}>Back</Text>
+            <Text style={styles.buttonText}>← Atrás</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -178,7 +187,7 @@ export default function RiskMatrixScreen({ navigation, route }) {
             onPress={handleNext}
             disabled={!getRiskLevel()}
           >
-            <Text style={styles.buttonText}>Next</Text>
+            <Text style={styles.buttonText}>Siguiente →</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -192,14 +201,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   header: {
-    padding: 20,
-    paddingBottom: 10,
+    paddingHorizontal: spacing.containerPadding,
+    paddingTop: spacing.sectionPadding,
+    paddingBottom: spacing.elementMargin,
     position: 'relative',
   },
   closeButton: {
     position: 'absolute',
-    top: 20,
-    right: 20,
+    top: spacing.sectionPadding,
+    right: spacing.containerPadding,
     zIndex: 10,
   },
   closeButtonText: {
@@ -212,38 +222,62 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.white,
     textAlign: 'center',
-    marginBottom: 5,
+    marginBottom: spacing.sm,
+    lineHeight: 32,
   },
   subtitle: {
     fontSize: 18,
     color: colors.white,
     textAlign: 'center',
+    marginBottom: spacing.xl,
+    lineHeight: 26,
+  },
+  instructionBox: {
+    ...instructionBoxStyles,
+    borderLeftColor: colors.secondary,
+    marginHorizontal: 0,
+  },
+  instructionTitle: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: spacing.smallMargin,
+  },
+  instructionText: {
+    color: colors.white,
+    fontSize: 13,
+    lineHeight: 20,
   },
   content: {
     flex: 1,
-    padding: 20,
+  },
+  scrollContent: {
+    paddingHorizontal: spacing.containerPadding,
+    paddingBottom: spacing.largeMargin,
   },
   section: {
-    marginBottom: 25,
+    marginBottom: spacing.formFieldMargin,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: colors.white,
-    marginBottom: 15,
+    marginBottom: spacing.elementMargin,
     textAlign: 'center',
+    lineHeight: 26,
   },
   optionsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    gap: spacing.sm,
   },
   optionButton: {
     flex: 1,
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderWidth: 2,
     borderColor: 'rgba(255, 255, 255, 0.3)',
-    borderRadius: 8,
-    padding: 12,
+    borderRadius: spacing.inputBorderRadius,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.sm,
     alignItems: 'center',
     minHeight: 70,
     justifyContent: 'center',
@@ -256,39 +290,42 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 4,
+    marginBottom: spacing.xs,
   },
   optionLabel: {
     color: colors.white,
     fontSize: 11,
     textAlign: 'center',
+    lineHeight: 16,
   },
   matrixContainer: {
     flexDirection: 'row',
-    marginBottom: 25,
+    marginBottom: spacing.formFieldMargin,
   },
   matrixLabels: {
-    marginRight: 10,
+    marginRight: spacing.smallMargin,
     justifyContent: 'space-between',
   },
   matrixAxisLabel: {
     color: colors.white,
     fontSize: 14,
     fontWeight: 'bold',
-    marginBottom: 10,
-    height: 30,
+    marginBottom: spacing.smallMargin,
+    height: spacing.largeMargin,
+    lineHeight: 20,
   },
   probabilityButton: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderWidth: 2,
     borderColor: 'rgba(255, 255, 255, 0.3)',
-    borderRadius: 8,
-    padding: 8,
+    borderRadius: spacing.inputBorderRadius,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.xs,
     width: 80,
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 2,
+    marginVertical: spacing.xs / 2,
   },
   probabilityButtonSelected: {
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
@@ -303,21 +340,22 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 9,
     textAlign: 'center',
+    lineHeight: 13,
   },
   matrixGrid: {
     flex: 1,
   },
   matrixRow: {
     flexDirection: 'row',
-    marginVertical: 2,
+    marginVertical: spacing.xs / 2,
   },
   matrixCell: {
     flex: 1,
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 2,
-    borderRadius: 4,
+    marginHorizontal: spacing.xs / 2,
+    borderRadius: spacing.xs,
   },
   matrixCellSelected: {
     borderWidth: 3,
@@ -329,35 +367,32 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   riskLevelContainer: {
-    padding: 20,
-    borderRadius: 8,
-    marginBottom: 25,
+    padding: spacing.xl,
+    borderRadius: spacing.inputBorderRadius,
+    marginBottom: spacing.formFieldMargin,
   },
   riskLevelText: {
     color: colors.white,
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: 'bold',
     textAlign: 'center',
+    lineHeight: 22,
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginBottom: 40,
+    gap: spacing.elementMargin,
   },
   backButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: colors.white,
-    borderRadius: 25,
-    padding: 15,
-    alignItems: 'center',
   },
   nextButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: colors.white,
-    borderRadius: 25,
-    padding: 15,
-    alignItems: 'center',
   },
   nextButtonDisabled: {
     opacity: 0.5,

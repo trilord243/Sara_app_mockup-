@@ -9,6 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import { colors } from '../theme/colors';
+import { spacing, instructionBoxStyles, buttonStyles } from '../theme/spacing';
 import Header from '../components/Header';
 import { preTaskQuestions } from '../data/fakeData';
 
@@ -47,24 +48,26 @@ export default function PreTaskScreen({ navigation }) {
     setShowWarning(false);
     setShowReasonModal(false);
     // In a real app, this would send the information to the office
-    alert('Office has been notified. Please wait for authorization.');
+    alert('Se ha notificado a la oficina. Por favor espere autorización.');
   };
 
   return (
     <View style={styles.container}>
       <Header
-        onHelpPress={() => alert('Help')}
-        onExitPress={() => alert('Exit')}
+        onHelpPress={() => alert('Ayuda')}
+        onExitPress={() => alert('Salir')}
       />
 
-      <ScrollView style={styles.content}>
-        <Text style={styles.title}>Basic Safety Conditions & Permit To Work</Text>
+      <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
+        <Text style={styles.title}>Condiciones Básicas de Seguridad y Permiso de Trabajo</Text>
 
-        <Text style={styles.instructions}>
-          First please double check that you have everything you need in order to
-          complete the service task in a safe, professional way. all answers should be
-          based on the actual conditions
-        </Text>
+        <View style={styles.instructionBox}>
+          <Text style={styles.instructionTitle}>📋 Instrucciones</Text>
+          <Text style={styles.instructionText}>
+            Primero, verifique que tiene todo lo que necesita para completar la tarea de servicio de manera segura y profesional.
+            Todas las respuestas deben basarse en las condiciones reales del sitio.
+          </Text>
+        </View>
 
         {preTaskQuestions.map((question) => (
           <View key={question.id} style={styles.questionContainer}>
@@ -83,7 +86,7 @@ export default function PreTaskScreen({ navigation }) {
                     <View style={styles.radioInner} />
                   )}
                 </View>
-                <Text style={styles.radioLabel}>Yes</Text>
+                <Text style={styles.radioLabel}>Sí</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -126,11 +129,11 @@ export default function PreTaskScreen({ navigation }) {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.buttonText}>Back</Text>
+            <Text style={styles.buttonText}>← Atrás</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-            <Text style={styles.buttonText}>Next</Text>
+            <Text style={styles.buttonText}>Siguiente →</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -145,12 +148,13 @@ export default function PreTaskScreen({ navigation }) {
         <View style={styles.modalOverlay}>
           <View style={styles.warningModal}>
             <Text style={styles.warningTitle}>
-              What is preventing you from having permission to do the job?
+              ¿Qué le impide tener permiso para realizar el trabajo?
             </Text>
 
             <TextInput
               style={styles.reasonInput}
-              placeholder="The installation manager is not present."
+              placeholder="El gerente de instalación no está presente."
+              placeholderTextColor="#999"
               value={noPermissionReason}
               onChangeText={setNoPermissionReason}
               multiline
@@ -161,14 +165,14 @@ export default function PreTaskScreen({ navigation }) {
                 style={styles.modalBackButton}
                 onPress={() => setShowReasonModal(false)}
               >
-                <Text style={styles.modalButtonText}>Back</Text>
+                <Text style={styles.modalButtonText}>← Atrás</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.modalNextButton}
                 onPress={handleWarningSubmit}
               >
-                <Text style={styles.modalButtonText}>Next</Text>
+                <Text style={styles.modalButtonText}>Siguiente →</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -191,20 +195,20 @@ export default function PreTaskScreen({ navigation }) {
               <Text style={styles.closeButtonText}>✕</Text>
             </TouchableOpacity>
 
-            <Text style={styles.stopTitle}>WARNING - Do Not Continue With The Job</Text>
+            <Text style={styles.stopTitle}>ADVERTENCIA - No Continúe Con El Trabajo</Text>
 
             <View style={styles.stopSign}>
               <Text style={styles.stopHand}>✋</Text>
-              <Text style={styles.stopText}>STOP</Text>
+              <Text style={styles.stopText}>ALTO</Text>
             </View>
 
             <Text style={styles.stopMessage}>
-              The Risk Assessment Has Been Completed
+              La Evaluación de Riesgos Ha Sido Completada
             </Text>
 
             <Text style={styles.stopInstructions}>
-              Call the office immediately to inform them that you don't have the
-              customer authorization/approval to continue with the planned job.
+              Llame a la oficina inmediatamente para informarles que no tiene la
+              autorización/aprobación del cliente para continuar con el trabajo planificado.
             </Text>
 
             <View style={styles.modalButtons}>
@@ -212,14 +216,14 @@ export default function PreTaskScreen({ navigation }) {
                 style={styles.stopBackButton}
                 onPress={() => setShowWarning(false)}
               >
-                <Text style={styles.stopButtonText}>Back</Text>
+                <Text style={styles.stopButtonText}>← Atrás</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.stopSubmitButton}
                 onPress={handleWarningSubmit}
               >
-                <Text style={styles.stopButtonText}>Submit</Text>
+                <Text style={styles.stopButtonText}>✓ Enviar</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -236,45 +240,63 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 20,
+  },
+  scrollContent: {
+    paddingHorizontal: spacing.containerPadding,
+    paddingTop: spacing.sectionPadding,
+    paddingBottom: spacing.largeMargin,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     color: colors.white,
-    marginBottom: 15,
+    marginBottom: spacing.xl,
     textAlign: 'center',
+    lineHeight: 28,
   },
-  instructions: {
+  instructionBox: {
+    ...instructionBoxStyles,
+    borderLeftColor: colors.secondary,
+    marginHorizontal: 0,
+    marginBottom: spacing.formFieldMargin,
+  },
+  instructionTitle: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: spacing.smallMargin,
+  },
+  instructionText: {
     color: colors.white,
     fontSize: 13,
     lineHeight: 20,
-    marginBottom: 25,
   },
   questionContainer: {
-    marginBottom: 25,
+    marginBottom: spacing.formFieldMargin,
   },
   questionText: {
     color: colors.white,
     fontSize: 14,
-    marginBottom: 12,
-    lineHeight: 20,
+    marginBottom: spacing.elementMargin,
+    lineHeight: 22,
   },
   answersRow: {
     flexDirection: 'row',
+    gap: spacing.xl,
   },
   radioButton: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   radioCircle: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
     borderWidth: 2,
     borderColor: colors.white,
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: spacing.sm,
   },
   radioInner: {
     width: 12,
@@ -284,29 +306,24 @@ const styles = StyleSheet.create({
   },
   radioLabel: {
     color: colors.white,
-    fontSize: 14,
+    fontSize: 15,
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 30,
-    marginBottom: 40,
+    gap: spacing.elementMargin,
+    marginTop: spacing.largeMargin,
   },
   backButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: colors.white,
-    borderRadius: 25,
-    padding: 15,
-    alignItems: 'center',
   },
   nextButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: colors.white,
-    borderRadius: 25,
-    padding: 15,
-    alignItems: 'center',
   },
   buttonText: {
     fontSize: 16,
@@ -317,67 +334,67 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: spacing.sectionPadding,
   },
   warningModal: {
     backgroundColor: colors.primary,
-    borderRadius: 10,
-    padding: 25,
+    borderRadius: spacing.cardBorderRadius,
+    padding: spacing.containerPadding,
     width: '90%',
     maxWidth: 400,
   },
   warningTitle: {
     color: colors.white,
     fontSize: 16,
-    marginBottom: 20,
+    marginBottom: spacing.xl,
     textAlign: 'center',
+    lineHeight: 24,
   },
   reasonInput: {
     backgroundColor: colors.white,
-    borderRadius: 5,
-    padding: 15,
-    fontSize: 14,
+    borderRadius: spacing.inputBorderRadius,
+    padding: spacing.elementMargin,
+    fontSize: 15,
     minHeight: 80,
     textAlignVertical: 'top',
-    marginBottom: 20,
+    marginBottom: spacing.xl,
   },
   modalButtons: {
     flexDirection: 'row',
+    gap: spacing.elementMargin,
   },
   modalBackButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: colors.white,
-    borderRadius: 25,
-    padding: 12,
-    alignItems: 'center',
+    paddingVertical: spacing.md,
   },
   modalNextButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: colors.white,
-    borderRadius: 25,
-    padding: 12,
-    alignItems: 'center',
+    paddingVertical: spacing.md,
   },
   modalButtonText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
   },
   stopModal: {
     backgroundColor: colors.red,
-    borderRadius: 10,
-    padding: 25,
+    borderRadius: spacing.cardBorderRadius,
+    padding: spacing.containerPadding,
     width: '90%',
     maxWidth: 400,
     position: 'relative',
   },
   closeButton: {
     position: 'absolute',
-    top: 10,
-    right: 10,
-    width: 30,
-    height: 30,
+    top: spacing.smallMargin,
+    right: spacing.smallMargin,
+    width: spacing.largeMargin,
+    height: spacing.largeMargin,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -391,16 +408,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 20,
-    marginTop: 10,
+    marginBottom: spacing.xl,
+    marginTop: spacing.smallMargin,
+    lineHeight: 26,
   },
   stopSign: {
     alignItems: 'center',
-    marginVertical: 20,
+    marginVertical: spacing.xl,
   },
   stopHand: {
     fontSize: 60,
-    marginBottom: 10,
+    marginBottom: spacing.smallMargin,
   },
   stopText: {
     fontSize: 48,
@@ -412,33 +430,32 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 15,
+    marginBottom: spacing.elementMargin,
+    lineHeight: 24,
   },
   stopInstructions: {
     color: colors.white,
     fontSize: 14,
     textAlign: 'center',
-    lineHeight: 20,
-    marginBottom: 25,
+    lineHeight: 22,
+    marginBottom: spacing.formFieldMargin,
   },
   stopBackButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: colors.white,
-    borderRadius: 25,
-    padding: 12,
-    alignItems: 'center',
+    paddingVertical: spacing.md,
   },
   stopSubmitButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: colors.white,
-    borderRadius: 25,
-    padding: 12,
-    alignItems: 'center',
+    paddingVertical: spacing.md,
   },
   stopButtonText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
   },
 });

@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 
 // Import screens
+import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import PreTaskScreen from './screens/PreTaskScreen';
 import PhotoUploadScreen from './screens/PhotoUploadScreen';
@@ -21,11 +22,12 @@ export default function App() {
     <NavigationContainer>
       <StatusBar style="light" />
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="Login"
         screenOptions={{
           headerShown: false,
         }}
       >
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="PreTask" component={PreTaskScreen} />
         <Stack.Screen name="PhotoUpload" component={PhotoUploadScreen} />

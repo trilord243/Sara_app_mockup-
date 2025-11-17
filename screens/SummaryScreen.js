@@ -17,45 +17,45 @@ export default function SummaryScreen({ navigation, route }) {
       case 'green':
         return {
           backgroundColor: colors.green,
-          title: 'The Risk Is Green',
-          buttonLabel: 'Approved',
-          message: 'You have now assessed the risk and you are authorised to do the job',
+          title: 'El Riesgo Es Verde',
+          buttonLabel: 'Aprobado',
+          message: 'Ha evaluado el riesgo y está autorizado para realizar el trabajo',
           icon: '✓',
           showReassess: false,
         };
       case 'yellow':
         return {
           backgroundColor: colors.yellow,
-          title: 'The Risk Is Yellow',
-          buttonLabel: 'Approved',
-          message: 'You have now assessed the risk and you are authorised to do the job',
+          title: 'El Riesgo Es Amarillo',
+          buttonLabel: 'Aprobado con Precaución',
+          message: 'Ha evaluado el riesgo y está autorizado para realizar el trabajo con precaución',
           icon: '✓',
           showReassess: false,
         };
       case 'red':
         return {
           backgroundColor: colors.red,
-          title: 'The Risk Is Red',
-          buttonLabel: 'Do not Continue',
-          message: 'Conditions are not safe enough',
+          title: 'El Riesgo Es Rojo',
+          buttonLabel: 'No Continuar',
+          message: 'Las condiciones no son lo suficientemente seguras',
           icon: '⚠',
           showReassess: true,
         };
       case 'black':
         return {
           backgroundColor: colors.black,
-          title: 'The Risk Is Black',
-          buttonLabel: 'Do not Continue',
-          message: 'Conditions are not safe enough',
+          title: 'El Riesgo Es Negro',
+          buttonLabel: 'No Continuar',
+          message: 'Las condiciones no son lo suficientemente seguras',
           icon: '⚠',
           showReassess: true,
         };
       default:
         return {
           backgroundColor: colors.green,
-          title: 'Risk Assessment Complete',
-          buttonLabel: 'Approved',
-          message: 'Assessment completed',
+          title: 'Evaluación de Riesgos Completa',
+          buttonLabel: 'Aprobado',
+          message: 'Evaluación completada',
           icon: '✓',
           showReassess: false,
         };
@@ -75,12 +75,12 @@ export default function SummaryScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <Header
-        onHelpPress={() => alert('Help')}
-        onExitPress={() => alert('Exit')}
+        onHelpPress={() => alert('Ayuda')}
+        onExitPress={() => alert('Salir')}
       />
 
       <View style={[styles.summaryContainer, { backgroundColor: config.backgroundColor }]}>
-        <Text style={styles.title}>Summary</Text>
+        <Text style={styles.title}>Resumen</Text>
 
         <Text style={styles.riskTitle}>{config.title}</Text>
 
@@ -95,7 +95,7 @@ export default function SummaryScreen({ navigation, route }) {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.backButtonText}>Back</Text>
+            <Text style={styles.backButtonText}>← Atrás</Text>
           </TouchableOpacity>
 
           {config.showReassess ? (
@@ -103,14 +103,14 @@ export default function SummaryScreen({ navigation, route }) {
               style={styles.reassessButton}
               onPress={handleReassess}
             >
-              <Text style={styles.reassessButtonText}>Reassess</Text>
+              <Text style={styles.reassessButtonText}>🔄 Reevaluar</Text>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
               style={styles.submitButton}
               onPress={handleExit}
             >
-              <Text style={styles.submitButtonText}>Submit</Text>
+              <Text style={styles.submitButtonText}>✓ Enviar</Text>
             </TouchableOpacity>
           )}
         </View>

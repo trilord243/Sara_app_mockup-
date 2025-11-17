@@ -19,13 +19,21 @@ export default function RiskDetailScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <Header
-        onHelpPress={() => alert('Help')}
-        onExitPress={() => alert('Exit')}
+        onHelpPress={() => alert('Ayuda')}
+        onExitPress={() => alert('Salir')}
       />
 
       <View style={styles.header}>
-        <Text style={styles.title}>Risk Assessment</Text>
-        <Text style={styles.subtitle}>{risk?.name || 'Risk Type'}</Text>
+        <Text style={styles.title}>Evaluación de Riesgos</Text>
+        <Text style={styles.subtitle}>{risk?.name || 'Tipo de Riesgo'}</Text>
+      </View>
+
+      <View style={styles.instructionBox}>
+        <Text style={styles.instructionTitle}>ℹ️ Información del Riesgo</Text>
+        <Text style={styles.instructionText}>
+          Revise la descripción del riesgo y las medidas de control mínimas requeridas.
+          Asegúrese de comprenderlas antes de continuar con la evaluación.
+        </Text>
       </View>
 
       <ScrollView style={styles.content}>
@@ -35,7 +43,7 @@ export default function RiskDetailScreen({ navigation, route }) {
           {risk?.minimumControl && (
             <>
               <Text style={styles.controlTitle}>
-                Minimum control measures:
+                Medidas de Control Mínimas:
               </Text>
               <Text style={styles.controlText}>{risk.minimumControl}</Text>
             </>
@@ -47,11 +55,11 @@ export default function RiskDetailScreen({ navigation, route }) {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.buttonText}>Back</Text>
+            <Text style={styles.buttonText}>← Atrás</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-            <Text style={styles.buttonText}>Next</Text>
+            <Text style={styles.buttonText}>Siguiente →</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -79,6 +87,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: colors.white,
     textAlign: 'center',
+  },
+  instructionBox: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    marginHorizontal: 20,
+    marginBottom: 10,
+    padding: 15,
+    borderRadius: 10,
+    borderLeftWidth: 4,
+    borderLeftColor: colors.secondary,
+  },
+  instructionTitle: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  instructionText: {
+    color: colors.white,
+    fontSize: 13,
+    lineHeight: 20,
   },
   content: {
     flex: 1,

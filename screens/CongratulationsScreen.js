@@ -20,7 +20,7 @@ export default function CongratulationsScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Header
-        onHelpPress={() => alert('Help')}
+        onHelpPress={() => alert('Ayuda')}
         onExitPress={handleExit}
       />
 
@@ -31,14 +31,14 @@ export default function CongratulationsScreen({ navigation }) {
           </View>
         </View>
 
-        <Text style={styles.title}>Congratulations</Text>
+        <Text style={styles.title}>¡Felicitaciones!</Text>
 
         <Text style={styles.message}>
-          The Risk Assessment Has Been Completed
+          La Evaluación de Riesgos Ha Sido Completada Exitosamente
         </Text>
 
         <TouchableOpacity style={styles.exitButton} onPress={handleExit}>
-          <Text style={styles.exitButtonText}>Exit</Text>
+          <Text style={styles.exitButtonText}>🏠 Salir</Text>
         </TouchableOpacity>
       </View>
     </View>

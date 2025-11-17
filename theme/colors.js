@@ -32,10 +32,10 @@ export const colors = {
   matrixBlack: '#000000',
 };
 
-// Matrix configuration
+// Configuración de matriz de riesgos
 export const riskMatrix = {
-  green: { min: 1, max: 2, label: 'Green: Low Risk - Carry Out The Task' },
-  yellow: { min: 3, max: 6, label: 'Yellow: Moderate Risk - Carry Out The Task With Caution' },
-  red: { min: 8, max: 12, label: 'Red: High Risk - Implement Controls To Lower The Risk Before Proceeding' },
-  black: { value: 16, label: 'Black: Extremely High Risk - Stop Immediately' },
+  green: { min: 1, max: 2, label: 'Verde: Riesgo Bajo - Realice La Tarea' },
+  yellow: { min: 3, max: 6, label: 'Amarillo: Riesgo Moderado - Realice La Tarea Con Precaución' },
+  red: { min: 8, max: 12, label: 'Rojo: Riesgo Alto - Implemente Controles Para Reducir El Riesgo Antes De Proceder' },
+  black: { value: 16, label: 'Negro: Riesgo Extremadamente Alto - Deténgase Inmediatamente' },
 };

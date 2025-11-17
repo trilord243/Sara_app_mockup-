@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { colors } from '../theme/colors';
+import { spacing, instructionBoxStyles, buttonStyles } from '../theme/spacing';
 import Header from '../components/Header';
 
 export default function PhotoUploadScreen({ navigation }) {
@@ -19,7 +20,7 @@ export default function PhotoUploadScreen({ navigation }) {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.granted === false) {
-      Alert.alert('Permission Required', 'Permission to access camera roll is required!');
+      Alert.alert('Permiso Requerido', '¡Se requiere permiso para acceder a la galería de fotos!');
       return;
     }
 
@@ -38,7 +39,7 @@ export default function PhotoUploadScreen({ navigation }) {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
     if (permissionResult.granted === false) {
-      Alert.alert('Permission Required', 'Permission to access camera is required!');
+      Alert.alert('Permiso Requerido', '¡Se requiere permiso para acceder a la cámara!');
       return;
     }
 
@@ -64,42 +65,41 @@ export default function PhotoUploadScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Header
-        onHelpPress={() => alert('Help')}
-        onExitPress={() => alert('Exit')}
+        onHelpPress={() => alert('Ayuda')}
+        onExitPress={() => alert('Salir')}
       />
 
-      <ScrollView style={styles.content}>
+      <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
         <Text style={styles.title}>
-          Please take photos of the work area where you will do the job, focusing on
-          hazards.
+          Carga de Fotos del Área de Trabajo
         </Text>
-        <Text style={styles.subtitle}>(max 10 files and/or 100mb)</Text>
 
-        <View style={styles.instructionsBox}>
-          <Text style={styles.instructionBullet}>
-            • First identify all hazards (S.A.R.A will help you) and assess the risk
-          </Text>
-          <Text style={styles.instructionBullet}>
-            • Call the office if the risk is too high or you are not sure.
+        <View style={styles.instructionBox}>
+          <Text style={styles.instructionTitle}>📸 Instrucciones</Text>
+          <Text style={styles.instructionText}>
+            Por favor tome fotos del área de trabajo donde realizará el servicio, enfocándose en los peligros potenciales.
+            Identifique todos los riesgos (S.A.R.A le ayudará) y evalúe el nivel de peligro.
           </Text>
         </View>
 
+        <Text style={styles.subtitle}>(máximo 10 archivos y/o 100mb)</Text>
+
         <Text style={styles.infoText}>
-          If the risk is assessed as being red or black, your manager will be informed
-          automatically via mail (if you are connected to a network)
+          Si el riesgo se evalúa como rojo o negro, su gerente será informado
+          automáticamente por correo (si está conectado a una red)
         </Text>
 
         <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
-          <Text style={styles.uploadButtonText}>Tap or click to add a picture</Text>
+          <Text style={styles.uploadButtonText}>📁 Toque o haga clic para agregar una imagen</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.cameraButton} onPress={takePhoto}>
-          <Text style={styles.cameraButtonText}>📷 Take Photo</Text>
+          <Text style={styles.cameraButtonText}>📷 Tomar Foto</Text>
         </TouchableOpacity>
 
         {photos.length > 0 && (
           <View style={styles.photosContainer}>
-            <Text style={styles.photosTitle}>Uploaded Photos:</Text>
+            <Text style={styles.photosTitle}>Fotos Cargadas:</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {photos.map((photo, index) => (
                 <View key={index} style={styles.photoWrapper}>
@@ -119,16 +119,16 @@ export default function PhotoUploadScreen({ navigation }) {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.saveButton}
-            onPress={() => alert('Photos saved to gallery')}
+            onPress={() => alert('Fotos guardadas en la galería')}
           >
-            <Text style={styles.saveButtonText}>Save to gallery</Text>
+            <Text style={styles.saveButtonText}>💾 Guardar en galería</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.clearButton}
             onPress={() => setPhotos([])}
           >
-            <Text style={styles.clearButtonText}>Clear gallery</Text>
+            <Text style={styles.clearButtonText}>🗑️ Limpiar galería</Text>
           </TouchableOpacity>
         </View>
 
@@ -137,11 +137,11 @@ export default function PhotoUploadScreen({ navigation }) {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.buttonText}>Back</Text>
+            <Text style={styles.buttonText}>← Atrás</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-            <Text style={styles.buttonText}>Next</Text>
+            <Text style={styles.buttonText}>Siguiente →</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -156,57 +156,67 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 20,
+  },
+  scrollContent: {
+    paddingHorizontal: spacing.containerPadding,
+    paddingTop: spacing.sectionPadding,
+    paddingBottom: spacing.largeMargin,
   },
   title: {
     color: colors.white,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: spacing.xl,
+    textAlign: 'center',
+    lineHeight: 28,
+  },
+  instructionBox: {
+    ...instructionBoxStyles,
+    borderLeftColor: colors.secondary,
+    marginHorizontal: 0,
+    marginBottom: spacing.xl,
+  },
+  instructionTitle: {
+    color: colors.white,
     fontSize: 16,
-    marginBottom: 5,
-    lineHeight: 22,
+    fontWeight: 'bold',
+    marginBottom: spacing.smallMargin,
+  },
+  instructionText: {
+    color: colors.white,
+    fontSize: 13,
+    lineHeight: 20,
   },
   subtitle: {
     color: colors.white,
     fontSize: 12,
-    marginBottom: 20,
-  },
-  instructionsBox: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 15,
-  },
-  instructionBullet: {
-    color: colors.white,
-    fontSize: 13,
-    lineHeight: 20,
-    marginBottom: 8,
+    marginBottom: spacing.elementMargin,
+    textAlign: 'center',
   },
   infoText: {
     color: colors.white,
     fontSize: 12,
     lineHeight: 18,
-    marginBottom: 25,
+    marginBottom: spacing.formFieldMargin,
   },
   uploadButton: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderWidth: 2,
     borderColor: colors.white,
     borderStyle: 'dashed',
-    borderRadius: 8,
-    padding: 40,
+    borderRadius: spacing.inputBorderRadius,
+    padding: spacing.xxxl,
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: spacing.elementMargin,
   },
   uploadButtonText: {
     color: colors.white,
     fontSize: 16,
   },
   cameraButton: {
+    ...buttonStyles,
     backgroundColor: colors.secondary,
-    borderRadius: 8,
-    padding: 15,
-    alignItems: 'center',
-    marginBottom: 25,
+    marginBottom: spacing.formFieldMargin,
   },
   cameraButtonText: {
     color: colors.white,
@@ -214,31 +224,31 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   photosContainer: {
-    marginBottom: 25,
+    marginBottom: spacing.formFieldMargin,
   },
   photosTitle: {
     color: colors.white,
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: spacing.elementMargin,
   },
   photoWrapper: {
     position: 'relative',
-    marginRight: 10,
+    marginRight: spacing.smallMargin,
   },
   photo: {
     width: 150,
     height: 150,
-    borderRadius: 8,
+    borderRadius: spacing.inputBorderRadius,
   },
   removeButton: {
     position: 'absolute',
-    top: 5,
-    right: 5,
+    top: spacing.xs,
+    right: spacing.xs,
     backgroundColor: colors.red,
-    width: 25,
-    height: 25,
-    borderRadius: 12.5,
+    width: spacing.formFieldMargin,
+    height: spacing.formFieldMargin,
+    borderRadius: spacing.formFieldMargin / 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -249,55 +259,50 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginBottom: 25,
+    gap: spacing.elementMargin,
+    marginBottom: spacing.formFieldMargin,
   },
   saveButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: colors.white,
-    borderRadius: 25,
-    padding: 12,
-    alignItems: 'center',
+    paddingVertical: spacing.md,
   },
   clearButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: colors.white,
-    borderRadius: 25,
-    padding: 12,
-    alignItems: 'center',
+    paddingVertical: spacing.md,
   },
   saveButtonText: {
     color: colors.white,
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
   },
   clearButtonText: {
     color: colors.white,
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
   },
   navigationButtons: {
     flexDirection: 'row',
-    marginBottom: 40,
+    gap: spacing.elementMargin,
   },
   backButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: colors.white,
-    borderRadius: 25,
-    padding: 15,
-    alignItems: 'center',
   },
   nextButton: {
+    ...buttonStyles,
     flex: 1,
     backgroundColor: colors.white,
-    borderRadius: 25,
-    padding: 15,
-    alignItems: 'center',
   },
   buttonText: {
     fontSize: 16,
