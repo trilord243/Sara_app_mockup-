@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm start)",
+      "Bash(dir:*)",
+      "Bash(nul)",
+      "Bash(npx expo start --clear)",
+      "Bash(taskkill:*)",
+      "Bash(npx expo start:*)",
+      "Bash(npm install:*)",
+      "Bash(pkill:*)",
+      "Bash(rm:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

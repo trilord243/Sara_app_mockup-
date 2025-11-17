@@ -13,8 +13,8 @@ import Header from '../components/Header';
 import { countries, languages, userInfo, jobInfo } from '../data/fakeData';
 
 export default function HomeScreen({ navigation }) {
-  const [country, setCountry] = useState('United States');
-  const [language, setLanguage] = useState('English');
+  const [country, setCountry] = useState('Estados Unidos');
+  const [language, setLanguage] = useState('Español');
   const [showCountries, setShowCountries] = useState(false);
   const [showLanguages, setShowLanguages] = useState(false);
   const [formData, setFormData] = useState({
@@ -34,19 +34,28 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Header
-        onHelpPress={() => alert('Help')}
-        onExitPress={() => alert('Exit')}
+        onHelpPress={() => alert('Ayuda')}
+        onExitPress={() => alert('Salir')}
       />
 
       <ScrollView style={styles.content}>
         <View style={styles.logoContainer}>
           <Text style={styles.logo}>S.A.R.A.</Text>
-          <Text style={styles.subtitle}>Service Automated Risk Assessment</Text>
+          <Text style={styles.subtitle}>Evaluación Automatizada de Riesgos de Servicio</Text>
+        </View>
+
+        {/* Texto explicativo */}
+        <View style={styles.instructionBox}>
+          <Text style={styles.instructionTitle}>📋 Bienvenido</Text>
+          <Text style={styles.instructionText}>
+            Complete la siguiente información para iniciar su evaluación de riesgos.
+            Asegúrese de proporcionar datos precisos para garantizar la seguridad en el sitio de trabajo.
+          </Text>
         </View>
 
         <View style={styles.form}>
           {/* Country Selector */}
-          <Text style={styles.label}>Country:</Text>
+          <Text style={styles.label}>País:</Text>
           <TouchableOpacity
             style={styles.dropdown}
             onPress={() => setShowCountries(!showCountries)}
@@ -72,7 +81,7 @@ export default function HomeScreen({ navigation }) {
           )}
 
           {/* Language Selector */}
-          <Text style={styles.label}>Language:</Text>
+          <Text style={styles.label}>Idioma:</Text>
           <TouchableOpacity
             style={styles.dropdown}
             onPress={() => setShowLanguages(!showLanguages)}
@@ -98,7 +107,7 @@ export default function HomeScreen({ navigation }) {
           )}
 
           {/* Employee Information */}
-          <Text style={styles.label}>Employee's Full Name:</Text>
+          <Text style={styles.label}>Nombre Completo del Empleado:</Text>
           <TextInput
             style={styles.input}
             value={formData.employeeName}
@@ -107,27 +116,29 @@ export default function HomeScreen({ navigation }) {
             }
           />
 
-          <Text style={styles.label}>Employee Number:</Text>
+          <Text style={styles.label}>Número de Empleado:</Text>
           <TextInput
             style={styles.input}
             value={formData.employeeNumber}
             onChangeText={(text) =>
               setFormData({ ...formData, employeeNumber: text })
             }
+            keyboardType="numeric"
           />
 
-          <Text style={styles.label}>Service Order Number:</Text>
+          <Text style={styles.label}>Número de Orden de Servicio:</Text>
           <TextInput
             style={styles.input}
             value={formData.serviceOrderNumber}
             onChangeText={(text) =>
               setFormData({ ...formData, serviceOrderNumber: text })
             }
-            placeholder="IMPORTANT: enter the correct number"
+            placeholder="IMPORTANTE: ingrese el número correcto"
             placeholderTextColor="#999"
+            keyboardType="numeric"
           />
 
-          <Text style={styles.label}>Customer Contact Person:</Text>
+          <Text style={styles.label}>Persona de Contacto del Cliente:</Text>
           <TextInput
             style={styles.input}
             value={formData.customerContact}
@@ -136,7 +147,7 @@ export default function HomeScreen({ navigation }) {
             }
           />
 
-          <Text style={styles.label}>Customer Emergency Contact Person (If Different):</Text>
+          <Text style={styles.label}>Contacto de Emergencia del Cliente (Si es diferente):</Text>
           <TextInput
             style={styles.input}
             value={formData.emergencyContact}
@@ -145,7 +156,7 @@ export default function HomeScreen({ navigation }) {
             }
           />
 
-          <Text style={styles.label}>Site Address:</Text>
+          <Text style={styles.label}>Dirección del Sitio:</Text>
           <View style={styles.addressContainer}>
             <TouchableOpacity style={styles.gpsButton}>
               <Text style={styles.gpsIcon}>📍</Text>
@@ -156,22 +167,26 @@ export default function HomeScreen({ navigation }) {
               onChangeText={(text) =>
                 setFormData({ ...formData, siteAddress: text })
               }
+              placeholder="Use el GPS o ingrese manualmente"
+              placeholderTextColor="#999"
             />
           </View>
 
-          <Text style={styles.label}>Job Task To Be Done:</Text>
+          <Text style={styles.label}>Tarea de Trabajo a Realizar:</Text>
           <TextInput
             style={[styles.input, styles.textArea]}
             value={formData.jobDescription}
             onChangeText={(text) =>
               setFormData({ ...formData, jobDescription: text })
             }
+            placeholder="Describa detalladamente el trabajo a realizar..."
+            placeholderTextColor="#999"
             multiline
             numberOfLines={4}
           />
 
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-            <Text style={styles.nextButtonText}>Next</Text>
+            <Text style={styles.nextButtonText}>Siguiente →</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -202,6 +217,25 @@ const styles = StyleSheet.create({
     color: colors.white,
     marginTop: 5,
     letterSpacing: 1,
+  },
+  instructionBox: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    margin: 20,
+    padding: 15,
+    borderRadius: 10,
+    borderLeftWidth: 4,
+    borderLeftColor: colors.secondary,
+  },
+  instructionTitle: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  instructionText: {
+    color: colors.white,
+    fontSize: 13,
+    lineHeight: 20,
   },
   form: {
     padding: 20,
